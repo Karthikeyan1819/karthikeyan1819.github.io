@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disaster Recovery Procedures</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Disaster Recovery Procedures</h1>
+    
+    <label for="disasterType">Select Disaster Type:</label>
+    <select id="disasterType">
+        <script>
+            // Define the URL where your JSON data is hosted
+            const jsonUrl = "json/procedure.json";
+    
+            // Get a reference to the select element
+            const selectElement = document.getElementById("disasterType");
+    
+            // Fetch the JSON data from the URL
+            fetch(jsonUrl)
+                .then(response => response.json())
+                .then(disasterData => {
+                    // Loop through the JSON data and add options to the select element
+                    for (const disasterType in disasterData) {
+                        const option = document.createElement("option");
+                        option.value = disasterType;
+                        option.textContent = disasterType;
+                        selectElement.appendChild(option);
+                    }
+                })
+                .catch(error => console.error("Error fetching JSON data:", error));
+        </script>
+    </select>
+    
+    <label for="riskLevel">Select Risk Level:</label>
+    <select id="riskLevel">
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+    </select>
+    
+    <button id="get-procedure">Get Procedures</button>
+    
+    <div id="procedures">
+        <!-- Procedures will be displayed here -->
+    </div>
+    <script>
+        // Split the text on colon or period and join with newline
+const content = document.getElementById('procedures');
+content.innerHTML = content.textContent
+  .split(/[:.]/)
+  .map((line) => line.trim())
+  .join('\n');
+
+    </script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
